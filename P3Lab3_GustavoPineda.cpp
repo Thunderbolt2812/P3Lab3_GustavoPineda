@@ -55,8 +55,8 @@ int* ejercicio3 (int*numeros){
 	for(int p = 0; p<sizeof(numeros);p++){
 		for(int k = 0;k<sizeof(numeros);k++){
 			if(numeros[k]==cont2){
-				resp[p]=k;
-				cout<<k<<endl;
+				int numa = k;
+				resp[p]=numa;
 				cont2--;
 			}
 		}
@@ -65,13 +65,37 @@ int* ejercicio3 (int*numeros){
 	delete[]resp;
 }
 
-/*string ejercicio4 (string pala){
+string ejercicio4 (string pala){
 	string resp4;
-	for(int i = 0;){
-		
+	int cont = 0,mayor = 0;
+	for(int i = 0;i<pala.length();i++){
+		char aux = pala.at(i);
+		for(int j = 0;j<pala.length();j++){
+			char aux2 = pala.at(j);
+			if(aux==aux2){
+				cont++;
+				if(mayor<=cont){
+					mayor = cont;
+					char let = aux;
+				}
+			}
+		}
+	}
+	int contk = 0;
+	for(int k = 0;k<pala.length();k++){
+		char auxk = pala.at(k);
+		for(int h = 0;h<pala.length();h++){
+			if(auxk==pala.at(h)){
+				contk++;
+			}
+			if(contk==mayor){
+			resp4+=auxk;
+			mayor--;
+			}
+		}	
 	}
 	return resp4;
-}*/
+}
 
 int main(int argc, char** argv) {
 	int opcion = 0;
@@ -107,7 +131,7 @@ int main(int argc, char** argv) {
 					letras.push_back(entrada);
 				}
 				int* ans = ejercicio2(letras,pal);
-				for(int j = 0;j<sizeof(ans);j++){
+				for(int j = 0;j<sizeof(ejercicio2(letras,pal));j++){
 					cout<<ans[j]<<", ";
 				}
 				cout<<endl;
@@ -130,7 +154,14 @@ int main(int argc, char** argv) {
 				break;
 			}
 			case 4:{
-				
+				string palab;
+				cout<<"Ingrese una palabra: "<<endl;
+				cin>>palab;
+				string resp4r = ejercicio4(palab);
+				for(int y = 0;y<resp4r.length();y++){
+					cout<<resp4r.at(y)<<", ";
+				}
+				cout<<endl;
 				break;
 			}
 				
