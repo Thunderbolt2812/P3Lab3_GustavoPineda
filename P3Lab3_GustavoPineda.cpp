@@ -67,9 +67,10 @@ int* ejercicio3 (int*numeros){
 
 string ejercicio4 (string pala){
 	string resp4;
-	int cont = 0,mayor = 0;
+	int mayor = 0;
 	for(int i = 0;i<pala.length();i++){
 		char aux = pala.at(i);
+		int cont = 0;
 		for(int j = 0;j<pala.length();j++){
 			char aux2 = pala.at(j);
 			if(aux==aux2){
@@ -89,10 +90,12 @@ string ejercicio4 (string pala){
 				contk++;
 			}
 			if(contk==mayor){
-			resp4+=auxk;
-			mayor--;
+				for(int l = 0;l<mayor;l++){
+					resp4+=auxk;
+				}
 			}
-		}	
+		}
+		mayor--;	
 	}
 	return resp4;
 }
