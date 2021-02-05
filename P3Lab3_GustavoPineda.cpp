@@ -26,9 +26,9 @@ vector<char> ejercicio1(string cad){
 	return cad1;
 }
 
-int* ejercicio2 (vector<char> vl, string cad){
-	int* resp = new int[vl.size()];
-	for(int i = 0; i<vl.size();i++){
+int* ejercicio2 (vector<char> vl, string cad,int tamano){
+	int* resp = new int[tamano];
+	for(int i = 0; i<tamano;i++){
 		int cont = 0;
 		for(int j = 0;j<cad.length();j++){
 			if(vl[i] == cad.at(j)){
@@ -41,25 +41,27 @@ int* ejercicio2 (vector<char> vl, string cad){
 	delete[]resp;
 }
 
-int* ejercicio3 (int*numeros){
+int* ejercicio3 (int*numeros,int tamal){
 	int mayor = 0,cont2 = 0;
-	int*resp = new int[sizeof(numeros)];
-	for(int i = 0; i<sizeof(numeros);i++){
-		for(int j = 0;j<sizeof(numeros);j++){
+	int*resp = new int[tamal];
+	for(int i = 0; i<tamal;i++){
+		for(int j = 0;j<tamal;j++){
 			if(numeros[j]>=numeros[i]){
 				mayor = numeros[j];
 				cont2 = mayor;
 			}
 		}
 	}
-	for(int p = 0; p<sizeof(numeros);p++){
-		for(int k = 0;k<sizeof(numeros);k++){
+	int cont=0;
+	for(int p = 0; p<tamal;p++){
+		for(int k = 0;k<tamal;k++){
 			if(numeros[k]==cont2){
 				int numa = k;
-				resp[p]=numa;
-				cont2--;
+				resp[cont]=numa;
+				cont++;
 			}
 		}
+		cont2--;
 	}
 	return resp;
 	delete[]resp;
@@ -67,35 +69,18 @@ int* ejercicio3 (int*numeros){
 
 string ejercicio4 (string pala){
 	string resp4;
-	int mayor = 0;
-	for(int i = 0;i<pala.length();i++){
-		char aux = pala.at(i);
-		int cont = 0;
-		for(int j = 0;j<pala.length();j++){
-			char aux2 = pala.at(j);
-			if(aux==aux2){
-				cont++;
-				if(mayor<=cont){
-					mayor = cont;
-					char let = aux;
-				}
-			}
+	vector<char> tin = ejercicio1(pala);
+	int tama = tin.size();
+	int*resp2 = new int[tama];
+	resp2=ejercicio2(tin,pala,tama);
+	int*resp3 = new int[tama];
+	resp3 = ejercicio3(resp2,tama);
+	for(int g = 0; g<tama; g++){
+		char let = tin.at(g);
+		int numero = resp2[g];
+		for(int h = 0;h<numero;h++){
+			resp4+=let;
 		}
-	}
-	int contk = 0;
-	for(int k = 0;k<pala.length();k++){
-		char auxk = pala.at(k);
-		for(int h = 0;h<pala.length();h++){
-			if(auxk==pala.at(h)){
-				contk++;
-			}
-			if(contk==mayor){
-				for(int l = 0;l<mayor;l++){
-					resp4+=auxk;
-				}
-			}
-		}
-		mayor--;	
 	}
 	return resp4;
 }
@@ -133,8 +118,8 @@ int main(int argc, char** argv) {
 					cin>>entrada;
 					letras.push_back(entrada);
 				}
-				int* ans = ejercicio2(letras,pal);
-				for(int j = 0;j<sizeof(ejercicio2(letras,pal));j++){
+				int* ans = ejercicio2(letras,pal,num);
+				for(int j = 0;j<num;j++){
 					cout<<ans[j]<<", ";
 				}
 				cout<<endl;
@@ -149,9 +134,9 @@ int main(int argc, char** argv) {
 				for(int i = 0;i<num;i++){
 					cin>>numeros[i];
 				}
-				int* numr = ejercicio3(numeros);
-				for (int f = 0;f<sizeof(numr);f++){
-					cout << numr[f] << " ";
+				int* numr = ejercicio3(numeros,num);
+				for (int f = 0;f<num;f++){
+					cout << *(numr+f) << " ";
 				}	
 			    cout<<endl;
 				break;
